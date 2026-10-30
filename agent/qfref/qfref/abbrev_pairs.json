@@ -1,0 +1,182 @@
+[
+ {
+  "abbr": "bps",
+  "full": "basis_points",
+  "term": true
+ },
+ {
+  "abbr": "bs",
+  "full": "black_scholes",
+  "term": true
+ },
+ {
+  "abbr": "caar",
+  "full": "cumulative_average_abnormal_returns",
+  "term": true
+ },
+ {
+  "abbr": "car",
+  "full": "cumulative_abnormal_returns",
+  "term": true
+ },
+ {
+  "abbr": "corr",
+  "full": "correlation",
+  "term": true
+ },
+ {
+  "abbr": "cov",
+  "full": "covariance",
+  "term": true
+ },
+ {
+  "abbr": "el",
+  "full": "expected_loss",
+  "term": true
+ },
+ {
+  "abbr": "es",
+  "full": "expected_shortfall",
+  "term": true
+ },
+ {
+  "abbr": "fd",
+  "full": "finite_difference",
+  "term": true
+ },
+ {
+  "abbr": "fhs",
+  "full": "filtered_historical_simulation",
+  "term": true
+ },
+ {
+  "abbr": "gbm",
+  "full": "geometric_brownian_motion",
+  "term": true
+ },
+ {
+  "abbr": "gl",
+  "full": "gauss_legendre",
+  "term": true
+ },
+ {
+  "abbr": "gpd",
+  "full": "generalized_pareto_distribution",
+  "term": true
+ },
+ {
+  "abbr": "hac",
+  "full": "heteroscedasticity_and_autocorrelation_consistent",
+  "term": true
+ },
+ {
+  "abbr": "hac",
+  "full": "heteroskedasticity_and_autocorrelation_consistent",
+  "term": true
+ },
+ {
+  "abbr": "hhi",
+  "full": "herfindahl_hirschman_index",
+  "term": true
+ },
+ {
+  "abbr": "hs",
+  "full": "historical_simulation",
+  "term": true
+ },
+ {
+  "abbr": "ima",
+  "full": "internal_models_approach",
+  "term": true
+ },
+ {
+  "abbr": "kde",
+  "full": "kernel_density_estimation",
+  "term": true
+ },
+ {
+  "abbr": "mc",
+  "full": "monte_carlo",
+  "term": true
+ },
+ {
+  "abbr": "mp",
+  "full": "marchenko_pastur",
+  "term": true
+ },
+ {
+  "abbr": "mse",
+  "full": "mean_squared_error",
+  "term": true
+ },
+ {
+  "abbr": "nobs",
+  "full": "number_of_observations",
+  "term": true
+ },
+ {
+  "abbr": "nw",
+  "full": "newey_west",
+  "term": true
+ },
+ {
+  "abbr": "pde",
+  "full": "partial_differential_equation",
+  "term": true
+ },
+ {
+  "abbr": "psor",
+  "full": "projected_successive_over_relaxation",
+  "term": true
+ },
+ {
+  "abbr": "pv",
+  "full": "present_value",
+  "term": true
+ },
+ {
+  "abbr": "resid",
+  "full": "residual",
+  "term": true
+ },
+ {
+  "abbr": "rmse",
+  "full": "root_mean_squared_error",
+  "term": true
+ },
+ {
+  "abbr": "se",
+  "full": "standard_error",
+  "term": true
+ },
+ {
+  "abbr": "se",
+  "full": "standard_errors",
+  "term": true
+ },
+ {
+  "abbr": "smb",
+  "full": "small_minus_big",
+  "term": true
+ },
+ {
+  "abbr": "sue",
+  "full": "standardized_unexpected_earnings",
+  "term": true
+ },
+ {
+  "abbr": "yz",
+  "full": "yang_zhang",
+  "term": true
+ },
+ {
+  "abbr": "zcb",
+  "full": "zero_coupon_bond",
+  "term": true
+ },
+ {
+  "abbr": "bp",
+  "full": "basis_point",
+  "term": true
+ }
+]

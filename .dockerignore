@@ -1,0 +1,8 @@
+runs/
+.git/
+docs/
+demo-cases/
+source-finder/
+**/__pycache__/
+**/*.pyc
+**/.DS_Store
