@@ -59,7 +59,7 @@ To make its analysis and code more reliable, Lamuir provides the model with stru
        explanation, run log
 ```
 
-Lamuir started from the open-source [mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent) (MIT license) and substantially modified its agent loop, replacing its shell with a persistent Python session (a REPL). Everything else is our own design.
+Lamuir started from the open-source [mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent) (MIT license) and substantially modified its agent loop, replacing its shell with a persistent Python session (a REPL). The rest of Lamuir is our own design, built on top of it.
 
 ## How it works
 
