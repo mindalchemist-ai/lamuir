@@ -61,6 +61,8 @@ To make its analysis and code more reliable, Lamuir provides the model with stru
 
 ## How it works
 
+Lamuir started from the open-source [mini-swe-agent](https://github.com/SWE-agent/mini-swe-agent) (MIT license) and substantially modified its agent loop, replacing its shell with a persistent Python session (a REPL). Everything else is our own design.
+
 Lamuir takes a question in plain English, which may also specify the expected output, and the data needed to answer it. If no data is provided, the [source finder](#source-finder) first retrieves it from official public sources. The agent then works in five steps:
 
 1. **Data profile.** Before the first model request, Lamuir reads up to eight CSV, TSV and parquet files in full and reports facts only: row counts, duplicated rows, missing or non-numeric cells, extreme values, date ranges and duplicate dates. How to handle them is left to the question.
