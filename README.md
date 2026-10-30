@@ -156,7 +156,14 @@ All six can be replayed on the [project page](https://mindalchemist-ai.github.io
 
 We evaluated Lamuir on the 86 public tasks of [QF-Bench](https://github.com/QF-Bench/QuantitativeFinance-Bench). Each task is graded by its own unmodified tests. QF-Bench is licensed under CC BY-NC 4.0, and none of its content is included in this repository; `scripts/run_qfbench.py` runs Lamuir on a QF-Bench copy you clone separately.
 
-Lamuir solved **65 of the 86 tasks (75.6%)**, with one run per task. Across all tasks it passed 93.7% of the individual tests; most remaining failures were small details such as units, formats or key names, rather than wrong methods.
+Lamuir solved **65 of the 86 tasks (75.6%)**, with one run per task. Across all tasks it passed 93.7% of the individual tests in the tasks' graders; most remaining failures were small details such as units, formats or key names, rather than wrong methods.
+
+To reproduce it, clone QF-Bench and run all tasks:
+
+```bash
+git clone https://github.com/QF-Bench/QuantitativeFinance-Bench.git ../QuantitativeFinance-Bench
+python scripts/run_qfbench.py --qfbench ../QuantitativeFinance-Bench --tasks all
+```
 
 ## Repository layout
 
