@@ -1,0 +1,9 @@
+schema_version = "2.0"
+
+[task]
+id    = "lamuir-demo-yield-curve-inversion"
+title = "U.S. Treasury Yield Curve Inversion, 2022-2025"
+
+[agent]
+timeout_sec = 900.0
+max_requests = 0

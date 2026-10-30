@@ -1,0 +1,103 @@
+/* Case stage (Claude Code, 2026-10-29): a short looping carousel that stays at the top while scrolling. The cards are
+   the case tabs: each has a tag, the question in a read-only chat-style box and the Replay button. */
+#stage-cases{position:sticky;top:var(--stage-top,84px);z-index:6;background:#2C3035;margin:0 0 14px;padding:12px 0;border-bottom:1px solid var(--line)}
+.stage-viewport{position:relative;overflow:hidden;padding:2px 0}
+.stage-track{display:flex;gap:16px;transition:transform .45s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.stage-slide{flex:0 0 min(620px,60%);border:1px solid var(--line);border-radius:9px;padding:12px 14px;background:linear-gradient(145deg,#2D343A,#272D32);opacity:.32;transform:scale(.95);transition:opacity .35s,transform .35s,border-color .35s;cursor:pointer;display:flex;flex-direction:column;gap:8px}
+.stage-slide.current{opacity:1;transform:none;border-color:var(--green);cursor:default}
+.stage-slide .card-top{margin:0;align-items:center}
+.stage-ask{display:flex;align-items:center;gap:10px;background:#101419;border:1px solid #63717c;border-radius:10px;padding:8px 8px 8px 14px;user-select:text;cursor:default}
+.stage-ask p{flex:1;margin:0;color:#f1f4f5;font:15px/1.45 Arial,sans-serif;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#stage-cases .stage-replay{flex:0 0 auto;width:32px;height:32px;min-height:32px;padding:0;font-size:12px;line-height:1;letter-spacing:-1px}
+.stage-slide:not(.current) .stage-replay{pointer-events:none}
+.stage-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:2;width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:#1C2024E6;color:var(--text);font-size:20px;line-height:1;cursor:pointer}
+.stage-arrow.prev{left:8px}.stage-arrow.next{right:8px}
+.stage-arrow:hover{border-color:var(--green)}
+/* the question and Replay now live in the card */
+#workspace .task-studio{display:none}
+/* the tagline sits in the top bar */
+section.hero.compact-intro{display:none}
+header .header-tagline{flex:1;display:flex;justify-content:center;min-width:0;padding:0;margin:0}
+header .hero.compact-intro.header-tagline h1{font-size:clamp(15px,1.6vw,22px);line-height:1.2;margin:0;letter-spacing:-.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+header .hero.compact-intro.header-tagline h1{background:none;color:#edf1f3;-webkit-text-fill-color:#edf1f3;animation:none}
+header .hero.compact-intro.header-tagline h1::before,header .hero.compact-intro.header-tagline h1::after{content:none;display:none}
+header nav{flex:0 0 auto}
+#examples{display:none}
+@media (max-width:900px){header .hero.compact-intro.header-tagline{display:none}}
+@media (max-width:700px){.stage-slide{flex-basis:88%}.stage-arrow{display:none}.stage-ask p{font-size:14px}}
+
+/* Compact frame (2026-10-29): a short top bar; the case cards and the four step tabs stay pinned together; the
+   notebook fills the rest of the window; no separate replay status bar. */
+header{height:56px}
+header .brand{font-size:30px;line-height:1}
+/* the maker's name sits to the right of the logo, smaller and in silver (the user asked, 2026-10-29) */
+header .brand>span{display:inline-flex;align-items:baseline;gap:10px}
+header .brand small{display:inline;font-size:13px;letter-spacing:.6px;margin:0;color:#C0C0C0;-webkit-text-fill-color:#C0C0C0;font-weight:400}
+main{padding-top:56px}
+#stage-cases{padding:8px 0 0}
+.stage-slide{padding:9px 12px;gap:6px}
+.stage-ask{padding:5px 6px 5px 12px}
+.stage-ask p{-webkit-line-clamp:2;font-size:14px}
+#stage-cases .tabs{margin:8px 0 0;border-bottom:0}
+#stage-cases .tabs button{height:32px;min-height:32px}
+#panel-run .transport{display:none}
+#panel-run .notebook{height:calc(100dvh - var(--pinned-bottom,260px) - 44px);max-height:none;min-height:260px;border-top:1px solid var(--line);border-radius:8px}
+.stage-note{color:var(--muted);margin:4px 0 14px}
+
+/* VS Code Dark+ for the replayed code: its background, default text and token colours (2026-10-29) */
+#notebook pre.code{background:#1E1E1E;color:#D4D4D4}
+#notebook .syntax-keyword{color:#569CD6}
+#notebook .syntax-control{color:#C586C0}
+#notebook .syntax-string{color:#CE9178}
+#notebook .syntax-variable{color:#9CDCFE}
+#notebook .syntax-number{color:#B5CEA8}
+#notebook .syntax-comment{color:#6A9955;font-style:normal}
+#notebook .syntax-function{color:#DCDCAA}
+#notebook .syntax-type{color:#4EC9B0}
+
+/* Smaller text in the code, output and table areas so more of them fits (2026-10-29) */
+#notebook pre.code,#notebook pre.output{font-size:12px;line-height:1.5;padding:10px 12px}
+#notebook .cell-head,#notebook .output-label{font-size:10px}
+#panel-data table,#panel-data th,#panel-data td{font-size:11.5px}
+#panel-data pre,#panel-results pre,#panel-interpret pre{font-size:12px;line-height:1.5}
+
+/* Less space between the pinned step tabs and the panel below (2026-10-29) */
+#stage-cases{margin-bottom:6px}
+#workspace [role=tabpanel]{padding-top:4px;margin-top:0}
+#panel-run .notebook{height:calc(100dvh - var(--pinned-bottom,260px) - 26px)}
+
+/* The chart fits the space under the pinned bar, kept at its own aspect ratio; the metric boxes are shorter (2026-10-29) */
+#panel-results .metric{padding:12px 16px}
+#panel-results .metric strong{font-size:24px}
+#panel-results figure{margin:12px 0}
+#panel-results figure img#chart{width:auto;max-width:100%;height:auto;max-height:calc(100dvh - var(--pinned-bottom,260px) - 40px);margin:0 auto}
+
+/* Output and interpretation panels: the step tab already names the step, so the panel heading goes; the three metrics
+   sit in one short row (2026-10-29) */
+#panel-results>.eyebrow,#panel-results>h2,#panel-interpret>.eyebrow,#panel-interpret>h2{display:none}
+#panel-results .metrics{gap:8px;margin-top:4px}
+#panel-results .metric{padding:6px 12px;display:flex;flex-direction:row;align-items:baseline;justify-content:flex-start;gap:10px;border-radius:7px}
+#panel-results .metric strong{font-size:18px;line-height:1.3}
+#panel-results .metric span{font-size:12px}
+#panel-results figure{margin:8px 0}
+#panel-results figure img#chart{max-height:calc(100dvh - var(--pinned-bottom,260px) - 70px)}
+
+/* Near-black code background and neutral greys around it, so the token colours read cleanly (2026-10-29) */
+#panel-run .notebook{background:#0A0A0A}
+#notebook .cell{background:#141414;border-color:#2A2A2A}
+#notebook .cell-head{background:#1C1C1C;color:#E6E6E6}
+#notebook pre.code{background:#0D0D0D}
+#notebook pre.output{background:#111111;color:#D9D9D9;border-top-color:#2A2A2A}
+#notebook .output-label{background:#171717;color:#A8C6BF;border-top-color:#2A2A2A}
+
+/* Step 04: the agent's explanation first, then the team's independent check (2026-10-29) */
+#panel-interpret .agent-explain h3,#panel-interpret .check h3{margin:6px 0 2px;font-size:16px}
+#panel-interpret #explanation{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.6 Arial,sans-serif;color:#edf1f3;background:#14191d;border:1px solid var(--line);border-radius:8px;padding:12px 14px;max-height:none}
+#panel-interpret .check{margin-top:14px}
+
+/* No step 04: the outputs answer each question with its numbers (the user decided, 2026-10-29) */
+#tab-interpret,#panel-interpret{display:none!important}
+
+/* The tagline follows the logo in the same size, colour and baseline as the byline, instead of floating white in the middle (2026-10-30) */
+header .hero.compact-intro.header-tagline{flex:0 1 auto;justify-content:flex-start;border-left:0;padding-left:0;margin-left:-4px}
+header .hero.compact-intro.header-tagline h1{font-size:13px;font-weight:400;letter-spacing:.6px;line-height:1.4;color:#C0C0C0;-webkit-text-fill-color:#C0C0C0;position:relative;top:2px}

@@ -1,0 +1,9 @@
+schema_version = "2.0"
+
+[task]
+id    = "lamuir-demo-usd-cross-rates"
+title = "Major Currencies Against the Dollar in 2025"
+
+[agent]
+timeout_sec = 900.0
+max_requests = 0

@@ -1,0 +1,282 @@
+{
+  "yield-curve-inversion": {
+    "category": "Rates",
+    "family": "Yield curve",
+    "title": "How long did the U.S. yield curve stay inverted?",
+    "question": "How many days was the 10-year minus 2-year U.S. Treasury yield spread negative in 2022–2025?",
+    "description": "Four yearly Treasury files with different columns each year, merged into one daily 10-year minus 2-year spread.",
+    "source": "U.S. Treasury · Daily Treasury Par Yield Curve Rates",
+    "period": "2022-01-03 to 2025-12-31",
+    "metrics": [
+      [
+        "n_inverted_days",
+        "{:d}",
+        "Inverted days"
+      ],
+      [
+        "min_spread_bp",
+        "{:.0f} bp",
+        "Deepest 10Y−2Y spread"
+      ],
+      [
+        "longest_inverted_streak_days",
+        "{:d}",
+        "Longest streak (days)"
+      ]
+    ],
+    "finding": "The 10-year minus 2-year spread was negative on 541 of 998 business days, from 1 April 2022 to 5 September 2024, and reached −108 bp on 3 July 2023.",
+    "verification": "Every daily spread, the inverted-day count and the streak match an independent plain-Python reference; the yields are checked against the Treasury files and the spread against the yields.",
+    "caveat": "Par yields, not zero-coupon rates. An inversion describes the curve's shape on those days; it is not a forecast.",
+    "urls": [
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+    ],
+    "input_format": "CSV · four yearly files",
+    "operations": "Merging files with different columns · date parsing · spreads · run lengths",
+    "coverage_result": "Matches the independent reference.",
+    "boundary": "One spread (10Y−2Y); no curve fitting.",
+    "reviewed": true,
+    "review_notes": [
+      "Chart: spread line, zero line, inverted area filled only below zero — correct.",
+      "Explanation matches the results and states the par-yield and no-forecast limits."
+    ],
+    "tags": [
+      "Yield curve",
+      "U.S. Treasury",
+      "Spreads",
+      "Time series"
+    ]
+  },
+  "jump-option-prices": {
+    "category": "Derivatives",
+    "family": "Option pricing",
+    "title": "How do price jumps change option values?",
+    "question": "How do Merton jump-diffusion option prices differ from Black-Scholes prices with the same total variance?",
+    "description": "Merton jump-diffusion against Black-Scholes with the same total variance, across 13 strikes, with a fixed 21-term series and put-call parity checked in both models.",
+    "source": "Assumed parameters (stated in the task)",
+    "period": "Pricing example",
+    "metrics": [
+      [
+        "atm_call_diff",
+        "{:.3f}",
+        "At-the-money difference"
+      ],
+      [
+        "largest_put_diff_strike",
+        "{:.0f}",
+        "Strike with the largest put premium"
+      ],
+      [
+        "n_terms",
+        "{:d}",
+        "Series terms"
+      ]
+    ],
+    "finding": "With the same total variance, the jump model prices at-the-money options 0.343 lower and far out-of-the-money puts higher, peaking at strike 80: jumps move probability into the tails.",
+    "verification": "All 13 strikes match an independent reference to 1e-8; λ = 0 reproduces Black-Scholes and put-call parity holds in both models.",
+    "caveat": "Assumed parameters; a pricing example, not a market quote.",
+    "urls": [],
+    "input_format": "Parameters only",
+    "operations": "Closed forms · a fixed 21-term Poisson series · parity checks",
+    "coverage_result": "Matches the independent reference.",
+    "boundary": "European options; lognormal jumps.",
+    "reviewed": true,
+    "review_notes": [
+      "Chart: Merton minus Black-Scholes differences against strike; call and put differences coincide, as put-call parity requires.",
+      "Explanation: lists the difference at every strike correctly (higher below about 92, lower above) and notes the parity; its account of why (fatter tails) is brief."
+    ],
+    "tags": [
+      "Option pricing",
+      "Merton jumps",
+      "Black-Scholes",
+      "Put-call parity"
+    ]
+  },
+  "eurusd-sma-costs": {
+    "category": "Trading strategy",
+    "family": "Backtest",
+    "title": "Does a trend-following strategy still pay after costs?",
+    "question": "Does a 50/200-day moving-average crossover on EUR/USD beat buy-and-hold after 2 bp trading costs, 2015–2025?",
+    "description": "A 50/200-day moving-average rule traded one day after each signal, with costs on every position change, against buy-and-hold.",
+    "source": "ECB · euro reference rate against the U.S. dollar",
+    "period": "2015-01-02 to 2025-12-31",
+    "metrics": [
+      [
+        "strategy.final_equity",
+        "{:.3f}",
+        "Strategy final equity"
+      ],
+      [
+        "buy_and_hold.final_equity",
+        "{:.3f}",
+        "Buy-and-hold final equity"
+      ],
+      [
+        "n_trades",
+        "{:d}",
+        "Trades"
+      ]
+    ],
+    "finding": "After costs the strategy ended at 0.933 against 1.030 for buy-and-hold, with a smaller maximum drawdown (16.5% against 23.4%).",
+    "verification": "Every day's equity, every trade and its cost match an independent reference; the trade list matches the position changes, and a hand-computed 8-day example checks the one-day lag.",
+    "caveat": "Computed by Lamuir from ECB reference rates, which are daily fixings, not traded prices. A historical test, not a forecast.",
+    "urls": [
+      "https://data.ecb.europa.eu/data/datasets/EXR"
+    ],
+    "input_format": "CSV · ECB long format",
+    "operations": "Moving averages · lagged execution · cost accounting · drawdowns",
+    "coverage_result": "Matches the independent reference.",
+    "boundary": "Long or flat only; one parameter pair.",
+    "reviewed": true,
+    "review_notes": [
+      "Chart: both equity curves and the strategy drawdown in a lower panel — correct.",
+      "Explanation: the numbers match the results. Three wordings are inaccurate. It says trades execute at 'the next day's open'; the task uses the next day's ECB reference rate. It calls the 21 trades 'round-trip trades'; they are single position changes. Its claim about whipsaws was not tested."
+    ],
+    "tags": [
+      "Backtest",
+      "Moving averages",
+      "Trading costs",
+      "ECB"
+    ]
+  },
+  "eurusd-ewma-volatility": {
+    "category": "Risk",
+    "family": "Volatility",
+    "title": "How do two volatility estimates compare?",
+    "question": "How do EWMA (λ = 0.94) and 60-day rolling volatility estimates of EUR/USD compare over 2015–2025?",
+    "description": "RiskMetrics EWMA (λ = 0.94) against a 60-day rolling standard deviation of EUR/USD log returns.",
+    "source": "ECB · euro reference rate against the U.S. dollar",
+    "period": "2015-01-02 to 2025-12-31",
+    "metrics": [
+      [
+        "max_ewma_vol_pct",
+        "{:.1f}%",
+        "EWMA peak"
+      ],
+      [
+        "max_rolling_vol_pct",
+        "{:.1f}%",
+        "Rolling peak"
+      ],
+      [
+        "days_ewma_above_rolling",
+        "{:d}",
+        "Days EWMA above rolling"
+      ]
+    ],
+    "finding": "In this sample the EWMA estimate peaked at 18.5% on 11 November 2022 and the 60-day rolling estimate at 14.4% on 29 November 2022. Both react on the day of a large move; EWMA weights recent days more, so its peak is higher and comes earlier here.",
+    "verification": "Both daily series match an independent reference to 1e-10; a hand-computed 3-day example and a constant-price check test both formulas.",
+    "caveat": "Computed by Lamuir from ECB reference rates. Neither estimate is the true volatility; the result depends on λ and the window length.",
+    "urls": [
+      "https://data.ecb.europa.eu/data/datasets/EXR"
+    ],
+    "input_format": "CSV · ECB long format",
+    "operations": "Log returns · rolling variance · recursive EWMA",
+    "coverage_result": "Matches the independent reference.",
+    "boundary": "One currency pair; one λ and window.",
+    "reviewed": true,
+    "review_notes": [
+      "Chart: both series over 2015-2025, labelled — correct.",
+      "Explanation says EWMA reacts more quickly; consistent with this sample (the EWMA peak came first and was higher), stated as a general property rather than proved."
+    ],
+    "tags": [
+      "Volatility",
+      "EWMA",
+      "Rolling window",
+      "ECB"
+    ]
+  },
+  "usd-cross-rates": {
+    "category": "FX",
+    "family": "Exchange rates",
+    "title": "Which currency rose most against the dollar in 2025?",
+    "question": "What was the 2025 percent change of the euro, pound, yen and Swiss franc against the U.S. dollar?",
+    "description": "ECB rates quoted per euro, turned into U.S. dollar values and a pound-yen cross, with triangle consistency checked every day.",
+    "source": "ECB · euro foreign exchange reference rates",
+    "period": "2025-01-02 to 2025-12-31",
+    "metrics": [
+      [
+        "change_pct.CHF",
+        "{:+.1f}%",
+        "Swiss franc vs USD"
+      ],
+      [
+        "change_pct.EUR",
+        "{:+.1f}%",
+        "Euro vs USD"
+      ],
+      [
+        "change_pct.JPY",
+        "{:+.1f}%",
+        "Yen vs USD"
+      ]
+    ],
+    "finding": "Against the dollar in 2025 the Swiss franc gained 14.5%, the euro 13.8%, the pound 8.4% and the yen 0.2%.",
+    "verification": "Every daily rate matches an independent reference to 1e-12, and the triangle identity holds on every date.",
+    "caveat": "Computed by Lamuir from ECB reference rates, which are fixed once a day; they are not trading prices.",
+    "urls": [
+      "https://data.ecb.europa.eu/data/datasets/EXR"
+    ],
+    "input_format": "CSV · ECB long format",
+    "operations": "Reshaping long data · quote conversion · cross rates",
+    "coverage_result": "Matches the independent reference.",
+    "boundary": "Reference rates only.",
+    "reviewed": true,
+    "review_notes": [
+      "Chart: cumulative change of four currencies — correct.",
+      "Explanation matches the results and states that ECB rates are daily fixings."
+    ],
+    "tags": [
+      "Exchange rates",
+      "Cross rates",
+      "ECB",
+      "2025"
+    ]
+  },
+  "bond-rate-sensitivity": {
+    "category": "Fixed income",
+    "family": "Bond risk",
+    "title": "How much does a bond lose when rates rise?",
+    "question": "How much would a 10-year, 4%-coupon bond's price fall if its yield rose 100 bp from the end-2024 10-year Treasury yield?",
+    "description": "A hypothetical 10-year, 4% annual-coupon bond priced at the end-2024 Treasury 10-year yield: duration, convexity and a one-point rate rise.",
+    "source": "U.S. Treasury · Daily Treasury Par Yield Curve Rates (10-year, 31 December 2024)",
+    "period": "Yield of 2024-12-31",
+    "metrics": [
+      [
+        "price_change_pct",
+        "{:+.2f}%",
+        "Price change for +1 point"
+      ],
+      [
+        "modified_duration",
+        "{:.2f}",
+        "Modified duration"
+      ],
+      [
+        "convexity",
+        "{:.1f}",
+        "Convexity"
+      ]
+    ],
+    "finding": "At a 4.58% yield the bond is worth 95.43. A one-point rise cuts the price to 88.14, a 7.64% fall; duration alone predicts a slightly bigger fall, and convexity closes most of the gap (error 0.014).",
+    "verification": "Every cash flow, the price, duration, convexity, the shocked price and all 25 points of the price curve match an independent reference; a par bond priced at its own coupon rate checks the pricing.",
+    "caveat": "Hypothetical bond; the Treasury par yield is used as its yield to maturity. Not a quote for a real Treasury bond.",
+    "urls": [
+      "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+    ],
+    "input_format": "CSV · one Treasury yearly file",
+    "operations": "Reading the latest yield · discounting · duration and convexity · repricing",
+    "coverage_result": "Matches the independent reference.",
+    "boundary": "One fixed-coupon bond; parallel yield shift.",
+    "reviewed": true,
+    "review_notes": [
+      "Chart: exact price curve with the duration-only and duration-plus-convexity approximations over ±300 bp — correct.",
+      "Explanation: the numbers match the results; it explains duration, convexity and why the duration-only line lies below the exact curve, and states that the bond is hypothetical."
+    ],
+    "tags": [
+      "Bond risk",
+      "Duration",
+      "Convexity",
+      "U.S. Treasury"
+    ]
+  }
+}
